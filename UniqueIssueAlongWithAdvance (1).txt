@@ -1,0 +1,71 @@
+[#Menu: Gateway Of Tally]
+
+	Item: UniqueBehave	: Alter	: UniqueBehave
+
+[Report: UniqueBehave]
+
+	Form	: UniqueBehave
+
+	Variable	: ShowMore
+
+	Set	: ShowMore	: No
+
+	Set	: ShowMoreApplicable	: Yes
+
+[Form: UniqueBehave]
+
+	Part	: UniqueBehave
+
+[Part: UniqueBehave]
+
+	Line	: UniqueBehave
+	Repeat	: UniqueBehave	: DummyObjects
+	Scroll	: Vertical
+
+[Line: UniqueBehave]
+
+	Field	: Medium Prompt, UniqueBillName
+
+	Local	: Field	: medium Prompt	: Set as	: "Enter Bill Name"
+
+[Field: UniqueBillName]
+
+	Set as	: ""
+
+	Table	: PendingBillsCollWithAdvance, ShowMoreLess
+
+	Common Table	: Yes
+
+	Show Table		: Always
+
+	Dynamic			: ""
+
+	Width			: @@NameWidth
+
+	Act On Table Element	: @@ShowMoreLess				: Execute Obj Actions	: ShowMoreLess
+
+	On	: Focus	: Yes	: Set	: ShowMore	: No
+
+[Collection: DummyObjects]
+
+	Object	: DummyObj1, DummyObj2, DummyObj3
+	
+[Object: DummyObj1]
+
+	Name	: 1
+
+[Object: DummyObj2]
+
+	Name	: 2
+	
+[Object: DummyObj3]
+
+	Name	: 3
+	
+[Collection: PendingBillsCollWithAdvance]
+
+	Use	: PendingBills
+
+	Advanced	: If ##ShowMore Then No Else $$IsDr:$FinalBalance
+
+	;Mark Unique nodes as Advanced	: Yes
